@@ -1,5 +1,13 @@
+
+import { Sidebar } from 'react-pro-sidebar'
+import App from '../../components/app/app'
+import Header from '../../components/header/header'
+import { AuthProvider } from '../../context/authContext'
+import { NotificationProvider } from '../../context/notifyContext'
 import './globals.css'
-import { Inter } from 'next/font/google'
+import { Inter, Noticia_Text } from 'next/font/google'
+import SideBar from '../../components/sidebar/sidebar'
+import { Box } from '@mui/material'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,7 +23,21 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+
+          <NotificationProvider>
+            <AuthProvider>
+              <App>
+                <Header />
+                <SideBar />
+                <Box ml={'80px'} mt={'20px'}>
+                {children} 
+                </Box>
+              </App>
+            </AuthProvider>
+          </NotificationProvider>
+        
+      </body>
     </html>
   )
 }

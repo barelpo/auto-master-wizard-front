@@ -1,5 +1,4 @@
 
-import { Sidebar } from 'react-pro-sidebar'
 import App from '../../components/app/app'
 import Header from '../../components/header/header'
 import { AuthProvider } from '../../context/authContext'
@@ -23,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={inter.className} style={{backgroundColor: '#f7f7f7'}}>
 
           <NotificationProvider>
             <AuthProvider>
@@ -31,7 +30,7 @@ export default function RootLayout({
                 <Header />
                 <SideBar />
                 <Box ml={'80px'} mt={'20px'}>
-                {children} 
+                  {children} 
                 </Box>
               </App>
             </AuthProvider>

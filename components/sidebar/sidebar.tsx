@@ -10,9 +10,13 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import { useAuth } from '../../context/authContext';
+import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
+import DirectionsCarFilledIcon from '@mui/icons-material/DirectionsCarFilled';
+import BadgeIcon from '@mui/icons-material/Badge';
+import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
+import { useRouter } from 'next/navigation';
+
 
 const drawerWidth = 240;
 
@@ -89,13 +93,19 @@ export default function SideBar() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const auth = useAuth()
+  const router = useRouter()
 
   let pages = []
+  let icons: any = []
+  let links: Array<string> = []
 
   if (auth?.user){
-    pages = ['Feed', 'Vehicles', 'My Profile', 'My Projects'];
+    pages = ['Feed', 'Manufacturers', 'My Profile', 'My Projects'];
+    icons = [<DynamicFeedIcon color='inherit' />, <DirectionsCarFilledIcon color='inherit'/>, <BadgeIcon color='inherit'/>, <HomeRepairServiceIcon color='inherit'/>]
+    links = ['/', '/vehicles', '/profile', '/profile/projects']
   } else {
-    pages = ['Feed', 'Vehicles']
+    pages = ['Feed', 'Manufacturers']
+    icons = [<DynamicFeedIcon color='inherit' />, <DirectionsCarFilledIcon color='inherit'/>]
   }
 
 
@@ -111,8 +121,7 @@ export default function SideBar() {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <Drawer variant="permanent" open={open} onMouseEnter={handleDrawerOpen} onMouseLeave={handleDrawerClose}
-        sx={{'& .MuiDrawer-paper': {top: '80px'}}}>
-        <DrawerHeader/>
+        sx={{'& .MuiDrawer-paper': {top: '64px'}}}>
         <List>
           {pages.map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
@@ -122,6 +131,7 @@ export default function SideBar() {
                   justifyContent: open ? 'initial' : 'center',
                   px: 2.5,
                 }}
+                onClick={()=>router.push(links[index])}
               >
                 <ListItemIcon
                   sx={{
@@ -130,7 +140,7 @@ export default function SideBar() {
                     justifyContent: 'center',
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {icons[index]}
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>

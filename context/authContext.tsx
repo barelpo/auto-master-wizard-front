@@ -14,7 +14,8 @@ const authReducer = (userData: IUserData, action: {type: UserActionType, context
           firstName: responseData.first_name,
           lastName: responseData.last_name,
           email: responseData.email,
-          username: responseData.username
+          username: responseData.username,
+          imgUrl: responseData.img_url
         }
       }
     

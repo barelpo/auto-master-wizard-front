@@ -4,7 +4,8 @@ export interface IUserData {
     firstName: string,
     lastName: string,
     email: string,
-    username: string
+    username: string,
+    imgUrl: string
   } | null
 }
 
